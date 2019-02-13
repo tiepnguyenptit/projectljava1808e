@@ -79,25 +79,7 @@ public class ProductApiController {
         return result;
     }
 
-    @PostMapping("/create")
-    public BaseApiResult createCategory(@RequestBody CategoryDTO dto){
-        BaseApiResult result = new BaseApiResult();
 
-        try {
-            Category categoryEntity = new Category();
-            categoryEntity.setShortDesc(dto.getShortDesc());
-            categoryEntity.setName(dto.getName());
-            categoryEntity.setCreatedDate(new Date());
-            categoryService.addNewCategory(categoryEntity);
-            result.setSuccess(true);
-            result.setMessage("Create category successfully: " + categoryEntity.getId());
-        } catch (Exception e) {
-            result.setSuccess(false);
-            result.setMessage(e.getMessage());
-            logger.error(e.getMessage());
-        }
-        return result;
-    }
 
 
 }

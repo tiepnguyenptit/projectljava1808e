@@ -1,12 +1,26 @@
 package application.model.viewmodel.home;
 
+import application.model.dto.CategoryDTO;
+import application.model.viewmodel.common.CategoryVM;
 import application.model.viewmodel.common.LayoutHeaderVM;
+import application.model.viewmodel.common.ProductVM;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class HomeLandingVM {
-    private ArrayList<BannerVM> listBanners;
+    private List<BannerVM> listBanners;
     private LayoutHeaderVM layoutHeaderVM;
+    private List<ProductVM> productVMList;
+    private List<CategoryVM> categoryVMList;
+    private String keyWord;
+
+    public List<BannerVM> getListBanners() {
+        return listBanners;
+    }
+
+    public void setListBanners(List<BannerVM> listBanners) {
+        this.listBanners = listBanners;
+    }
 
     public LayoutHeaderVM getLayoutHeaderVM() {
         return layoutHeaderVM;
@@ -16,11 +30,27 @@ public class HomeLandingVM {
         this.layoutHeaderVM = layoutHeaderVM;
     }
 
-    public ArrayList<BannerVM> getListBanners() {
-        return listBanners;
+    public List<ProductVM> getProductVMList() {
+        return productVMList;
     }
 
-    public void setListBanners(ArrayList<BannerVM> listBanners) {
-        this.listBanners = listBanners;
+    public void setProductVMList(List<ProductVM> productVMList) {
+        this.productVMList = productVMList;
+    }
+
+    public List<CategoryVM> getCategoryVMList() {
+        return categoryVMList;
+    }
+
+    public void setCategoryVMList(List<CategoryVM> categoryVMList) {
+        this.categoryVMList = categoryVMList;
+    }
+
+    public String getKeyWord() {
+        return keyWord;
+    }
+
+    public void setKeyWord(String keyWord) {
+        this.keyWord = keyWord;
     }
 }
