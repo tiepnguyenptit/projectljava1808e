@@ -30,7 +30,7 @@ public class Product {
     @Column(name = "short_desc")
     private String shortDesc;
 
-    @Column(name = "main_Image")
+    @Column(name = "main_image")
     private String mainImage;
 
     @Column(name = "price")
