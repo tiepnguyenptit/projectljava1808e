@@ -22,7 +22,7 @@
                         </li>
                     </th:block>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
+                <form class="form-inline my-2 my-lg-0" th:action="@{/}" th:object="${productname}" method="get">
                     <div sec:authorize="isAuthenticated()">
                         <div class="dropdown">
                             <button th:inline="text" style="margin-right: 10px" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -39,7 +39,7 @@
                     <div sec:authorize="isAnonymous()">
                         <a style="margin-right: 10px" class="btn btn-success" th:href="@{/login}">Login</a>
                     </div>
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control mr-sm-2" th:field="*{name}" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>
