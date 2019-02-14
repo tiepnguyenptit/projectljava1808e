@@ -67,8 +67,8 @@ public class ProductService {
         }
     }
 
-    public Page<Product> getListProductByCategory(Pageable pageable, Integer categoryId){
-        return productRepository.getListProductByCategory(pageable,categoryId);
+    public Page<Product> getListProductByCategoryOrProductNameContaining(Pageable pageable, Integer categoryId, String productName){
+        return productRepository.getListProductByCategoryOrProductNameContaining(pageable,categoryId,productName);
     }
 
     public long getTotalProducts(){
