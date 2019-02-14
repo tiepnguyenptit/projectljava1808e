@@ -1,4 +1,4 @@
-package application.data.service;
+ package application.data.service;
 
 import application.data.model.Product;
 import application.data.repository.ProductRepository;
