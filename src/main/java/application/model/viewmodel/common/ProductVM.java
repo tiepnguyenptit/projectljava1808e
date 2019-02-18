@@ -3,13 +3,21 @@ package application.model.viewmodel.common;
 import java.util.Date;
 
 public class ProductVM {
-
+    private int id;
     private String categoryName;
     private String name;
     private String shortDesc;
     private String mainImage;
     private Double price;
     private Date createdDate;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCategoryName() {
         return categoryName;

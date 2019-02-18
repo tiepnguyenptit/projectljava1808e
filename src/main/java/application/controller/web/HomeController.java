@@ -40,7 +40,7 @@ public class HomeController extends BaseController {
                        @Valid @ModelAttribute("productname") ProductVM productName,
                        @RequestParam(name = "categoryId", required = false) Integer categoryId,
                        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                       @RequestParam(name = "size", required = false, defaultValue = "10") Integer size,
+                       @RequestParam(name = "size", required = false, defaultValue = "12") Integer size,
                        @RequestParam(name = "sortByPrice", required = false) String sort){
 
 
@@ -64,6 +64,7 @@ public class HomeController extends BaseController {
 
         for(Category category : categoryList) {
             CategoryVM categoryVM = new CategoryVM();
+            categoryVM.setId(category.getId());
             categoryVM.setName(category.getName());
             categoryVM.setShortDesc(category.getShortDesc());
             category.setCreatedDate(category.getCreatedDate());
@@ -85,30 +86,30 @@ public class HomeController extends BaseController {
 
         Pageable pageable = new PageRequest(page, size, sortable);
 
-        List<Product> productList = new ArrayList<>();
+        Page<Product> productPage = null;
 
         if(categoryId != null) {
-            productList = productService.getListProductByCategoryOrProductNameContaining(pageable,categoryId,null).getContent();
+            productPage = productService.getListProductByCategoryOrProductNameContaining(pageable,categoryId,null);
             Category category = categoryService.findOne(categoryId);
             vm.setKeyWord(category.getName());
         } else if (productName.getName() != null && !productName.getName().isEmpty()) {
-            productList = productService.getListProductByCategoryOrProductNameContaining(pageable,null,productName.getName().trim()).getContent();
-            vm.setKeyWord("Find by product name containing " + productName);
+            productPage = productService.getListProductByCategoryOrProductNameContaining(pageable,null,productName.getName().trim());
+            vm.setKeyWord("Find with key: " + productName.getName());
         } else {
-            productList = productService.getListProductByCategoryOrProductNameContaining(pageable,null,null).getContent();
+            productPage = productService.getListProductByCategoryOrProductNameContaining(pageable,null,null);
         }
 
 
         List<ProductVM> productVMList = new ArrayList<>();
 
-        for(Product product : productList) {
+        for(Product product : productPage.getContent()) {
             ProductVM productVM = new ProductVM();
             if(product.getCategory() == null) {
                 productVM.setCategoryName("Unknown");
             } else {
                 productVM.setCategoryName(product.getCategory().getName());
             }
-
+            productVM.setId(product.getId());
             productVM.setName(product.getName());
             productVM.setMainImage(product.getMainImage());
             productVM.setPrice(product.getPrice());
@@ -119,6 +120,7 @@ public class HomeController extends BaseController {
         }
 
 
+
         vm.setListBanners(listBanners);
         vm.setLayoutHeaderVM(this.getLayoutHeaderVM());
         vm.setCategoryVMList(categoryVMList);
@@ -127,11 +129,9 @@ public class HomeController extends BaseController {
             vm.setKeyWord("Not found any product");
         }
 
-        for(ProductVM productVM : productVMList) {
-            System.out.println(productVM.getName());
-        }
 
         model.addAttribute("vm",vm);
+        model.addAttribute("page",productPage);
         return "home";
     }
 

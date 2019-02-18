@@ -1,5 +1,6 @@
 package application.model.viewmodel.home;
 
+import application.data.model.Product;
 import application.model.dto.CategoryDTO;
 import application.model.viewmodel.common.CategoryVM;
 import application.model.viewmodel.common.LayoutHeaderVM;
