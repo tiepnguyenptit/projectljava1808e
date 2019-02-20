@@ -1,6 +1,7 @@
 package application.model.viewmodel.common;
 
 import java.util.Date;
+import java.util.List;
 
 public class ProductVM {
     private int id;
@@ -10,6 +11,7 @@ public class ProductVM {
     private String mainImage;
     private Double price;
     private Date createdDate;
+    private List<ProductImageVM> productImageVMS;
 
     public int getId() {
         return id;
@@ -65,5 +67,13 @@ public class ProductVM {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public List<ProductImageVM> getProductImageVMS() {
+        return productImageVMS;
+    }
+
+    public void setProductImageVMS(List<ProductImageVM> productImageVMS) {
+        this.productImageVMS = productImageVMS;
     }
 }

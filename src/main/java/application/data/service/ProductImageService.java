@@ -7,6 +7,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
 @Service
 public class ProductImageService {
 
@@ -14,6 +17,15 @@ public class ProductImageService {
 
     @Autowired
     private ProductImageRepository productImageRepository;
+
+    @Transactional
+    public void addNewListProductImages(List<ProductImage> productImages) {
+        try {
+            productImageRepository.save(productImages);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+    }
 
     public void addNewProductImage(ProductImage productImage) {
         try {

@@ -27,7 +27,7 @@ public class CategoryApiController {
    private CategoryService categoryService;
 
    @GetMapping("/fake")
-   public BaseApiResult fakeCategory(){
+    public BaseApiResult fakeCategory(){
       BaseApiResult result = new BaseApiResult();
 
       try {

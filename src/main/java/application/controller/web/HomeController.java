@@ -17,10 +17,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,8 +44,13 @@ public class HomeController extends BaseController {
                        @RequestParam(name = "categoryId", required = false) Integer categoryId,
                        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
                        @RequestParam(name = "size", required = false, defaultValue = "12") Integer size,
-                       @RequestParam(name = "sortByPrice", required = false) String sort){
+                       @RequestParam(name = "sortByPrice", required = false) String sort,
+                       HttpServletResponse response,
+                       HttpServletRequest request,
+                       final Principal principal){
 
+
+        this.checkCookie(response,request,principal);
 
         HomeLandingVM vm = new HomeLandingVM();
 
@@ -99,7 +107,6 @@ public class HomeController extends BaseController {
             productPage = productService.getListProductByCategoryOrProductNameContaining(pageable,null,null);
         }
 
-
         List<ProductVM> productVMList = new ArrayList<>();
 
         for(Product product : productPage.getContent()) {
@@ -120,6 +127,9 @@ public class HomeController extends BaseController {
         }
 
 
+        /**
+         * set vm
+         */
 
         vm.setListBanners(listBanners);
         vm.setLayoutHeaderVM(this.getLayoutHeaderVM());
@@ -132,7 +142,7 @@ public class HomeController extends BaseController {
 
         model.addAttribute("vm",vm);
         model.addAttribute("page",productPage);
-        return "home";
+        return "/home";
     }
 
 

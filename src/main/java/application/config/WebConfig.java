@@ -1,9 +1,7 @@
 package application.config;
 
 
-import application.data.service.CategoryService;
-import application.data.service.ProductService;
-import application.data.service.UserService;
+import application.data.service.*;
 import org.apache.coyote.http11.AbstractHttp11Protocol;
 
 import org.apache.logging.log4j.LogManager;
@@ -70,6 +68,16 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public ProductService getProductService() {
         return new ProductService();
+    }
+
+    @Bean
+    public ProductImageService getProductImageService() {
+        return new ProductImageService();
+    }
+
+    @Bean
+    public CartService getCartService() {
+        return new CartService();
     }
 
     @Override
