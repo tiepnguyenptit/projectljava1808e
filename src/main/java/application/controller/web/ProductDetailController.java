@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +30,15 @@ public class ProductDetailController extends BaseController {
 
     @GetMapping("/{productId}")
     public String productDetail(@PathVariable Integer productId, Model model,
-                                @Valid @ModelAttribute("productname") ProductVM productName) {
+                                @Valid @ModelAttribute("productname") ProductVM productName,
+                                HttpServletResponse response,
+                                HttpServletRequest request,
+                                final Principal principal) {
+
+        /**
+         * check cookie to create cart guid
+         */
+        this.checkCookie(response,request,principal);
 
         ProductDetailVM vm = new ProductDetailVM();
 

@@ -41,57 +41,53 @@ public class BaseController {
                             final Principal principal) {
         Cookie cookie[] = request.getCookies();
 
-        boolean flag = true;
-
-        for(Cookie c : cookie) {
-            if(c.getName().equals("guid")) {
-                flag = false;
-            }
-        }
-
 
         if(principal!= null) {
-            boolean flag2 = true;
             String  username = SecurityContextHolder.getContext().getAuthentication().getName();
-            Cart cart = cartService.findByUserName(username);
-            if(cart != null) {
-                Cookie cookie1 = new Cookie("guid",cart.getGuid());
-                cookie1.setPath("");
+            Cart cartEntity = cartService.findByUserName(username);
+            if(cartEntity != null) {
+                Cookie cookie1 = new Cookie("guid",cartEntity.getGuid());
+                cookie1.setPath("/");
                 response.addCookie(cookie1);
-                flag2 = false;
-            }
-        }
-
-        if(flag == true) {
-            boolean flag2 = true;
-            if(principal != null) {
-                String  username = SecurityContextHolder.getContext().getAuthentication().getName();
-                Cart cart = cartService.findByUserName(username);
-                if(cart != null) {
-                    flag2 = false;
-                    Cookie cookie1 = new Cookie("guid",cart.getGuid());
-                    cookie1.setPath("");
-                    response.addCookie(cookie1);
-                }
-            }
-            if(flag2 == true) {
+            } else {
                 UUID uuid = UUID.randomUUID();
                 String guid = uuid.toString();
-
                 Cart cart = new Cart();
                 cart.setGuid(guid);
-                if(principal!=null) {
-                    String  username = SecurityContextHolder.getContext().getAuthentication().getName();
-                    cart.setUserName(username);
-                }
-
+                cart.setUserName(username);
                 cartService.addNewCart(cart);
 
                 Cookie cookie2 = new Cookie("guid",guid);
-                cookie2.setPath("");
+                cookie2.setPath("/");
                 response.addCookie(cookie2);
             }
+        } else {
+            boolean flag2 = true;
+
+            if(cookie!=null) {
+                for(Cookie c : cookie) {
+                    if(c.getName().equals("guid")) {
+                        flag2 = false;
+                    }
+                }
+            }
+
+            if(flag2 == true) {
+                UUID uuid = UUID.randomUUID();
+                String guid2 = uuid.toString();
+                Cart cart2 = new Cart();
+                cart2.setGuid(guid2);
+                cartService.addNewCart(cart2);
+
+                Cookie cookie3 = new Cookie("guid",guid2);
+                cookie3.setPath("/");
+                response.addCookie(cookie3);
+
+            }
+
         }
+
+
     }
 
 }

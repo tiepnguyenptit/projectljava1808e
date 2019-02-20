@@ -50,6 +50,9 @@ public class HomeController extends BaseController {
                        final Principal principal){
 
 
+        /**
+         * check cookie to create cart guid
+         */
         this.checkCookie(response,request,principal);
 
         HomeLandingVM vm = new HomeLandingVM();
