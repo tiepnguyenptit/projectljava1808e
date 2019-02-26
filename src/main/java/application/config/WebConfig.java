@@ -80,6 +80,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return new CartService();
     }
 
+    @Bean
+    public CartProductService getCartProductService() {
+        return new CartProductService();
+    }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 

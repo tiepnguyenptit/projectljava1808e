@@ -28,7 +28,7 @@ public class BaseController {
         ArrayList<HeaderMenuVM> headerMenuVMArrayList = new ArrayList<>();
         headerMenuVMArrayList.add(new HeaderMenuVM("Home", "/"));
         headerMenuVMArrayList.add(new HeaderMenuVM("Contact", "/"));
-        headerMenuVMArrayList.add(new HeaderMenuVM("Cart", "/"));
+        headerMenuVMArrayList.add(new HeaderMenuVM("Cart", "/cart"));
 
         vm.setHeaderMenuVMArrayList(headerMenuVMArrayList);
         vm.setCompanyName(CompanyConstant.name);

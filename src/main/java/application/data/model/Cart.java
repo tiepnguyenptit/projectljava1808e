@@ -45,4 +45,12 @@ public class Cart {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    public List<CartProduct> getListCartProducts() {
+        return listCartProducts;
+    }
+
+    public void setListCartProducts(List<CartProduct> listCartProducts) {
+        this.listCartProducts = listCartProducts;
+    }
 }

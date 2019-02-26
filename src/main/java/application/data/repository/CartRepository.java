@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CartRepository extends JpaRepository<Cart,Integer> {
 
-    @Query(value = "SELECT c FROM dbo_cart c " +
+    @Query(value = "SELECT * FROM dbo_cart c " +
             "WHERE :guid IS NULL OR c.guid = :guid " +
             "ORDER BY c.cart_id DESC LIMIT 1",nativeQuery = true)
     Cart findFirstCartByGuid(@Param("guid")String guid);

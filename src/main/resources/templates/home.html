@@ -100,7 +100,7 @@
                             <div class="card-body">
                                 <h5 class="card-title" th:text="${product.getName()}"></h5>
                                 <p class="card-text" th:text="${product.getPrice() + ' $'}"></p>
-                                <a href="#" class="btn btn-primary">Add to cart</a>
+                                <button type="button" class="btn btn-primary add-to-cart" th:attr="data-product=${product.getId()}">Add to cart</button>
                             </div>
                         </div>
                     </div>
