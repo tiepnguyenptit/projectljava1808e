@@ -7,15 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/cart.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/order-detail.css}"/>
 
-    <title>Cart</title>
+    <title>Order Detail</title>
 </head>
 <body>
 <div th:replace="fragments/header :: header_info (vm=${vm.getLayoutHeaderVM()})"></div>
 
 <div class="container">
-    <h3 style="margin-top: 30px">Total product(s): <span th:text="${vm.getProductAmount()}"></span></h3>
+    <h3 style="margin-top: 30px">Total product(s): <span th:text="${vm.getTotalProduct()}"></span></h3>
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
@@ -28,20 +28,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="cartProduct,iter : ${vm.getCartProductVMS()}">
+            <tr th:each="orderProduct,iter : ${vm.getOrderProductVMS()}">
                 <td colspan="1" th:text="${iter.index+1}" ></td>
                 <td colspan="4">
                     <a>
-                        <img style="width: auto; max-height: 250px;" th:src="${cartProduct.getMainImage()}">
+                        <img style="width: auto; max-height: 250px;" th:src="${orderProduct.getMainImage()}">
                     </a>
                 </td>
-                <td colspan="3"><a th:text="${cartProduct.getProductName()}"></a>
-                    <div style="margin-top: 180px;"><a style="cursor: pointer; color: red" class="delete-cart-product" th:attr="data-id=${cartProduct.getId()}">Delete</a></div>
+                <td colspan="3"><a th:text="${orderProduct.getName()}" th:src="@{'../../product/'+${orderProduct.getProductId()}}"></a>
                 </td>
-                <td colspan="2">
-                    <input type="number" th:value="${cartProduct.getAmount()}" class="form-control change-product-amount"   th:attr="data-id=${cartProduct.getId()}">
+                <td colspan="2" th:text="${orderProduct.getAmount()}">
                 </td>
-                <td colspan="2" th:text="${cartProduct.getPrice()}+'$'"></td>
+                <td colspan="2" th:text="${orderProduct.getPrice()}+'$'"></td>
                 </td>
             </tr>
 
@@ -57,7 +55,7 @@
     </div>
 
     <div style="text-align: right">
-        <a class="btn btn-primary" th:href="@{'../order/checkout'}" role="button">Checkout</a>
+        <a class="btn btn-primary" th:href="@{'../../../'}" role="button">Return home</a>
     </div>
 </div>
 
@@ -69,7 +67,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.9.0/sweetalert2.all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
-<script th:src="@{/js/cart.js}"></script>
+<script th:src="@{/js/order-detail.js}"></script>
 
 </body>
 </html>

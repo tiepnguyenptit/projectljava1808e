@@ -19,6 +19,9 @@ public class Order {
     @Column(name = "username")
     private String userName;
 
+    @Column(name = "customer_name")
+    private String customerName;
+
     @Column(name = "address")
     private String address;
 
@@ -27,6 +30,9 @@ public class Order {
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "price")
+    private double price;
 
     @Column (name = "created_date")
     private Date createdDate;
@@ -96,5 +102,21 @@ public class Order {
 
     public void setListProductOrders(List<OrderProduct> listProductOrders) {
         this.listProductOrders = listProductOrders;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

@@ -85,6 +85,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return new CartProductService();
     }
 
+    @Bean
+    public OrderService getOrderService() {
+        return new OrderService();
+    }
+
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 

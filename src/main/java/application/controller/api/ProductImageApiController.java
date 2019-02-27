@@ -48,7 +48,13 @@ public class ProductImageApiController {
             for(Product product : productList) {
                 if(product.getProductImageList().size() == 0) {
                     List<ProductImage> productImages = new ArrayList<>();
-                    for(int i=0; i<random.nextInt(3) +1 ; i++) {
+                    ProductImage productMainImage = new ProductImage();
+                    productMainImage.setLink(product.getMainImage());
+                    productMainImage.setProduct(product);
+                    productMainImage.setCreatedDate(new Date());
+
+                    productImages.add(productMainImage);
+                    for(int i=0; i<random.nextInt(2) +1 ; i++) {
                         ProductImage productImage = new ProductImage();
                         productImage.setLink(images[random.nextInt(images.length)]);
                         productImage.setProduct(product);

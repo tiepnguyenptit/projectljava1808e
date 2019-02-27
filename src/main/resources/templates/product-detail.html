@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-md-6 col-sm-12 col-xs-12">
             <img th:src="${vm.getProductVM().getMainImage()}" id="test1" class="product-main-image">
-            <div class="row">
+            <div class="row" style="margin-top: 15px">
                 <div class="col-md-4 col-sm-12 col-xs-12" style="padding-right: 5px" th:each=" productImg : ${vm.getProductVM().getProductImageVMS()}">
                     <div class="card">
                         <img th:src="${productImg.getLink()}" th:attr="data-image=${productImg.getLink()}" class="card-img-top" class="list-product-image">

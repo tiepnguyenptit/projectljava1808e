@@ -7,6 +7,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
 @Service
 public class CartProductService {
 
@@ -36,6 +39,17 @@ public class CartProductService {
     public boolean deleteCartProduct(int cartProductId) {
         try {
             cartProductRepository.delete(cartProductId);
+            return true;
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+        return false;
+    }
+
+    @Transactional
+    public boolean deleteListCartProducts(List<CartProduct> cartProducts) {
+        try {
+            cartProductRepository.delete(cartProducts);
             return true;
         } catch (Exception e) {
             logger.error(e.getMessage());

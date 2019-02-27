@@ -7,57 +7,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/cart.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/order-history.css}"/>
 
-    <title>Cart</title>
+    <title>Order history</title>
 </head>
 <body>
 <div th:replace="fragments/header :: header_info (vm=${vm.getLayoutHeaderVM()})"></div>
 
 <div class="container">
-    <h3 style="margin-top: 30px">Total product(s): <span th:text="${vm.getProductAmount()}"></span></h3>
+    <h2 style="margin-top: 40px; margin-bottom: 30px">Order history</h2>
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
             <tr>
                 <th colspan="1">Index</th>
-                <th colspan="4">Image</th>
-                <th colspan="3">Name</th>
-                <th colspan="2">Amount</th>
-                <th colspan="2">Price</th>
+                <th colspan="2">Customer Name</th>
+                <th colspan="2">Email</th>
+                <th colspan="2">Address</th>
+                <th colspan="2">Phone number</th>
+                <th colspan="1">Total price</th>
+                <th colspan="1">Created Date</th>
+                <th colspan="1">Detail</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="cartProduct,iter : ${vm.getCartProductVMS()}">
+            <tr th:each="order,iter : ${vm.getOrderVMS()}">
                 <td colspan="1" th:text="${iter.index+1}" ></td>
-                <td colspan="4">
-                    <a>
-                        <img style="width: auto; max-height: 250px;" th:src="${cartProduct.getMainImage()}">
-                    </a>
+                <td colspan="2" th:text="${order.getCustomerName()}"></td>
+                <td colspan="2" th:text="${order.getEmail()}"></td>
+                <td colspan="2" th:text="${order.getAddress()}"></td>
+                <td colspan="2" th:text="${order.getPhoneNumber()}"></td>
+                <td colspan="1" th:text="${order.getPrice()}"></td>
+                <td colspan="1" th:text="${order.getCreatedDate()}"></td>
+                <td colspan="1">
+                    <a class="btn btn-primary" th:href="@{'/order/history/'+${order.getId()}}" role="button">Detail</a>
                 </td>
-                <td colspan="3"><a th:text="${cartProduct.getProductName()}"></a>
-                    <div style="margin-top: 180px;"><a style="cursor: pointer; color: red" class="delete-cart-product" th:attr="data-id=${cartProduct.getId()}">Delete</a></div>
-                </td>
-                <td colspan="2">
-                    <input type="number" th:value="${cartProduct.getAmount()}" class="form-control change-product-amount"   th:attr="data-id=${cartProduct.getId()}">
-                </td>
-                <td colspan="2" th:text="${cartProduct.getPrice()}+'$'"></td>
+
                 </td>
             </tr>
 
             </tbody>
-            <tfoot>
-            <tr>
-                <th colspan="10">Total price</th>
-                <th colspan="2" th:text="${vm.getTotalPrice()}+'$'"></th>
-            </tr>
-            </tfoot>
         </table>
 
-    </div>
-
-    <div style="text-align: right">
-        <a class="btn btn-primary" th:href="@{'../order/checkout'}" role="button">Checkout</a>
     </div>
 </div>
 
@@ -69,7 +60,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.9.0/sweetalert2.all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
-<script th:src="@{/js/cart.js}"></script>
+<script th:src="@{/js/order-history.js}"></script>
 
 </body>
 </html>

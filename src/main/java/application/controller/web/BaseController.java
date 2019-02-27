@@ -64,10 +64,13 @@ public class BaseController {
         } else {
             boolean flag2 = true;
 
+            String guid = null;
+
             if(cookie!=null) {
                 for(Cookie c : cookie) {
                     if(c.getName().equals("guid")) {
                         flag2 = false;
+                        guid = c.getValue();
                     }
                 }
             }
@@ -83,6 +86,13 @@ public class BaseController {
                 cookie3.setPath("/");
                 response.addCookie(cookie3);
 
+            } else {
+                Cart cartEntity = cartService.findFirstCartByGuid(guid);
+                if(cartEntity == null) {
+                    Cart cart3 = new Cart();
+                    cart3.setGuid(guid);
+                    cartService.addNewCart(cart3);
+                }
             }
 
         }
