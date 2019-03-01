@@ -48,6 +48,7 @@ public class BaseController {
             if(cartEntity != null) {
                 Cookie cookie1 = new Cookie("guid",cartEntity.getGuid());
                 cookie1.setPath("/");
+                cookie1.setMaxAge(60*60*24);
                 response.addCookie(cookie1);
             } else {
                 UUID uuid = UUID.randomUUID();
@@ -59,6 +60,7 @@ public class BaseController {
 
                 Cookie cookie2 = new Cookie("guid",guid);
                 cookie2.setPath("/");
+                cookie2.setMaxAge(60*60*24);
                 response.addCookie(cookie2);
             }
         } else {
@@ -84,6 +86,7 @@ public class BaseController {
 
                 Cookie cookie3 = new Cookie("guid",guid2);
                 cookie3.setPath("/");
+                cookie3.setMaxAge(60*60*24);
                 response.addCookie(cookie3);
 
             } else {
