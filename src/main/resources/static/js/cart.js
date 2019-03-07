@@ -32,14 +32,15 @@ $(document).ready(function() {
             );
         });
     });
+    $(".delete-cart-product").on("click",function(){
+        var dataCart = {};
+        var pdInfo = $(this).data("product");
 
-    $(".delete-cart-product").on("click", function () {
-        var id = $(this).data("id");
+        dataCart.cartProductId = pdInfo;
+
         NProgress.start();
-
-        var linkGet = "/api/cart-product/delete/" + id;
-
-        axios.get(linkGet).then(function(res){
+        var linkGet = "/api/cart-product/delete";
+        axios.get(linkGet, dataCart).then(function(res){
             NProgress.done();
             if(res.data.success) {
                 swal(
@@ -54,9 +55,7 @@ $(document).ready(function() {
                     'Fail',
                     res.data.message,
                     'error'
-                ).then(function() {
-                    location.reload();
-                });
+                );
             }
         }, function(err){
             NProgress.done();
@@ -66,6 +65,7 @@ $(document).ready(function() {
                 'error'
             );
         });
-    });
+    })
+
 
 });
