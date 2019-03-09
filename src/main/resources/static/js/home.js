@@ -37,7 +37,7 @@ $(document).ready(function() {
 
 
     $(".add-to-cart").on("click", function () {
-        dataCart = {};
+        var dataCart = {};
         var pdInfo = $(this).data("product");
         dataCart.amount = 1;
         dataCart.productId = pdInfo;

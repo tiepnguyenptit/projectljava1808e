@@ -21,7 +21,7 @@ public class User {
     private String avatar;
 
     @Column(name = "gender")
-    private String gender;
+    private int gender;
 
     @Column(name = "address")
     private String address;
@@ -74,14 +74,6 @@ public class User {
         this.avatar = avatar;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -128,5 +120,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
     }
 }

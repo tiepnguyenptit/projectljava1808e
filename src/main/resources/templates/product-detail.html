@@ -31,7 +31,9 @@
             <h2 th:text="${vm.getProductVM().getName()}" style="text-align: center"></h2>
             <h4 th:text="${vm.getProductVM().getShortDesc()}" style="margin-top: 80px"></h4>
             <h3 th:text="${'Price: ' +vm.getProductVM().getPrice()} + '$'" style="margin-top: 100px"></h3>
-            <button class="btn btn-primary" style="margin-top: 30px">Add to cart</button>
+        <input id="getAmount" value="1"><br>
+            <button class="btn btn-primary add-to-cart" th:attr="data-product=${vm.getProductVM().getId()}" style="margin-top: 30px">Add to cart</button>
+
         </div>
 
     </div>

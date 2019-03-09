@@ -40,5 +40,43 @@ $(document).ready(function() {
     });
 
 
+    $(".add-to-cart").on("click", function () {
+        var dataCart = {};
+        var pdInfo = $(this).data("product");
+        dataCart.amount = document.getElementById('getAmount').value;
+        dataCart.productId = pdInfo;
+        dataCart.guid = getCookie("guid");
+
+        NProgress.start();
+
+        var linkPost = "/api/cart-product/add";
+
+        axios.post(linkPost, dataCart).then(function(res){
+            NProgress.done();
+            if(res.data.success) {
+                swal(
+                    'Success',
+                    res.data.message,
+                    'success'
+                ).then(function() {
+                    location.reload();
+                });
+            } else {
+                swal(
+                    'Fail',
+                    res.data.message,
+                    'error'
+                );
+            }
+        }, function(err){
+            NProgress.done();
+            swal(
+                'Error',
+                'Fail',
+                'error'
+            );
+        });
+    });
+
 
 });
