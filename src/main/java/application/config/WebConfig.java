@@ -54,43 +54,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return encoder;
     }
 
-
-    @Bean
-    public UserService getUserService() {
-        return new UserService();
-    }
-
-    @Bean
-    public CategoryService getCategoryService() {
-        return new CategoryService();
-    }
-
-    @Bean
-    public ProductService getProductService() {
-        return new ProductService();
-    }
-
-    @Bean
-    public ProductImageService getProductImageService() {
-        return new ProductImageService();
-    }
-
-    @Bean
-    public CartService getCartService() {
-        return new CartService();
-    }
-
-    @Bean
-    public CartProductService getCartProductService() {
-        return new CartProductService();
-    }
-
-    @Bean
-    public OrderService getOrderService() {
-        return new OrderService();
-    }
-
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 

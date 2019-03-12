@@ -1,5 +1,6 @@
 package application.config;
 
+import application.error.DemoAccessDeniedHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
                 .deleteCookies("guid")
+                .deleteCookies("JSESSIONID")
                 .permitAll()
                 .and().csrf().disable()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
@@ -61,7 +63,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**", "/js/**","/images/**");
     }
 
-    // create two users, admin and user
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         logger.info("-----configureGlobal(AuthenticationManagerBuilder auth)");
