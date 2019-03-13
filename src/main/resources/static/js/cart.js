@@ -33,14 +33,11 @@ $(document).ready(function() {
         });
     });
     $(".delete-cart-product").on("click",function(){
-        var dataCart = {};
-        var pdInfo = $(this).data("product");
-
-        dataCart.cartProductId = pdInfo;
+        var pdInfo = $(this).data("id");
 
         NProgress.start();
-        var linkGet = "/api/cart-product/delete";
-        axios.get(linkGet, dataCart).then(function(res){
+        var linkGet = "/api/cart-product/delete/"+pdInfo;
+        axios.get(linkGet).then(function(res){
             NProgress.done();
             if(res.data.success) {
                 swal(
