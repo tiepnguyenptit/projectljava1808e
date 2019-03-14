@@ -54,7 +54,7 @@ public class AdminController extends BaseController {
     public String product(Model model,
                           @Valid @ModelAttribute("productname") ProductVM productName,
                           @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                          @RequestParam(name = "size", required = false, defaultValue = "12") Integer size
+                          @RequestParam(name = "size", required = false, defaultValue = "8") Integer size
                           ) {
         AdminProductVM vm = new AdminProductVM();
 
