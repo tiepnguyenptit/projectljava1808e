@@ -58,6 +58,132 @@
                     </form>
                 </div>
                 <h2 th:if="${vm.getKeyWord()}" th:text="${vm.getKeyWord()}"></h2>
+
+                <button type="button" class="btn btn-primary" id="new-product" data-toggle="modal" style="margin-bottom: 20px" data-target="#exampleModalLong">
+                    Add new product
+                </button>
+
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th colspan="1">
+                                        Index
+                                    </th>
+                                    <th colspan="2">
+                                        Name
+                                    </th>
+                                    <th colspan="2">
+                                        Category
+                                    </th>
+                                    <th colspan="2">
+                                        Short Desc
+                                    </th>
+                                    <th colspan="1">
+                                        Price
+                                    </th>
+                                    <th colspan="2">
+                                        Created Date
+                                    </th>
+                                    <th colspan="2">
+
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="product : ${vm.getProductVMList()}">
+                                    <td colspan="1" th:text="${product.getId()}"></td>
+                                    <td colspan="2" th:text="${product.getName()}"></td>
+                                    <td colspan="2" th:text="${product.getCategoryName()}"></td>
+                                    <td colspan="2" th:text="${product.getShortDesc()}"></td>
+                                    <td colspan="1" th:text="${product.getPrice() + ' $'}"></td>
+                                    <td colspan="2" th:text="${product.getCreatedDate()}"></td>
+                                    <td colspan="2">
+                                        <i class="mdi mdi-brightness-7 tooltip-test edit-product" th:attr="data-product = ${product.getId()}" data-toggle="modal" title="Edit product" data-target="#exampleModalLong" style="cursor: pointer"></i>
+                                        <a th:href="@{'/admin/product-image/' + ${product.getId()}}">
+                                            <i class="mdi mdi-folder-multiple-image tooltip-test" title="List images"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <nav style="margin-top: 50px" aria-label="..." th:if="${vm.getProductVMList().size()>0}">
+                    <ul class="pagination">
+                        <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
+                            <li class="page-item active" th:if="${page.number == i}" aria-current="page">
+                                <a class="page-link" th:href="${''}" th:text="${i+1}"><span class="sr-only"></span></a>
+                            </li>
+                            <li class="page-item"  th:unless="${page.number == i}"><a class="page-link" th:text="${i+1}"
+                                                                                      th:href="${'?'
+                                                                                       +('&page='+i)
+                                                                                       +(#httpServletRequest.getParameter('size')==null?'':('&size='+#httpServletRequest.getParameter('size')))
+                                                                                       +(#httpServletRequest.getParameter('name')==null?'':('&name='+#httpServletRequest.getParameter('name')))}"></a></li>
+                        </th:block>
+                    </ul>
+                </nav>
+
+
+            </div>
+
+
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Add new/ update product</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div style="text-align: center">
+                                <img style="max-width: 200px; height: auto" src="https://www.vietnamprintpack.com/images/default.jpg" class="product-main-image">
+                            </div>
+
+                            <div style="text-align: center; margin-top: 20px">
+                                <input type='file'  id="change-product-mainImage"/>
+                            </div>
+
+                            <div class="form-group margin-bottom-15" style="margin-top: 20px">
+                                <label>Product name:</label>
+                                <input type="text" class="form-control" id="input-product-name">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Category:</label>
+                                <select class="form-control" id="input-product-category">
+                                    <option th:each="category : ${vm.getCategoryVMList()}" th:value="${category.getId()}" th:text="${category.getName()}"></option>
+                                </select>
+                            </div>
+
+                            <div class="form-group margin-bottom-15">
+                                <label>Product description:</label>
+                                <textarea type="text" class="form-control" id="input-product-desc"></textarea>
+                            </div>
+
+                            <div class="form-group margin-bottom-15" style="width: 100%">
+                                <label>Price:</label>
+                                <input type="text" class="form-control" style="display: block; margin: 5px ;width: 100%" id="input-product-price">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary btn-save-product">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <footer class="footer" th:replace="fragments/footer_admin :: footer_admin_info"></footer>
@@ -79,7 +205,7 @@
 <script th:src="@{/js/off-canvas.js}"></script>
 <script th:src="@{/js/misc.js}"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
+<script th:src="@{/js/admin-product.js}"></script>
 
 
 </body>
