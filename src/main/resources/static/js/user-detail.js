@@ -4,26 +4,32 @@ $(document).ready(function() {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function(e) {
-                $('#preview-product-img').attr('src', e.target.result);
+                $('.user-avatar').attr('src', e.target.result);
             }
             reader.readAsDataURL(input.files[0]);
         }
     }
 
 
-    $("#change-avatar").change(function() {
+    $("#input-avatar").change(function(e) {
         readURL(this);
+    });
+
+
+    $("#myForm").submit(function (e) {
+        e.preventDefault();
         var formData = new FormData();
         NProgress.start();
-        formData.append('file', $("#change-avatar")[0].files[0]);
+        formData.append('file', $("#input-avatar")[0].files[0]);
         axios.post("/api/upload/upload-image", formData).then(function(res){
             NProgress.done();
             if(res.data.success) {
-                $('.user-avatar').attr('src', res.data.link);
                 $("#avatar").val(res.data.link);
             }
+            $("#myForm")[0].submit();
         }, function(err){
             NProgress.done();
+            $("#myForm")[0].submit();
         });
     });
 
